@@ -1,20 +1,17 @@
 ﻿# Taken from https://community.spiceworks.com/topic/707515-monitor-inventory
-Function ConvertTo-Char
-(	
-	$Array
-)
-{
+
+Function ConvertTo-Char ($Array) {
 	$Output = ""
-	ForEach($char in $Array)
-	{	$Output += [char]$char -join ""
+	ForEach($char in $Array) {
+        $Output += [char]$char -join ""
 	}
+    
 	return $Output
 }
 
 $Query = Get-WmiObject -Query "Select * FROM WMIMonitorID" -Namespace root\wmi
 
-$Results = ForEach ($Monitor in $Query)
-{    
+$Results = ForEach ($Monitor in $Query) {
 	New-Object PSObject -Property @{
 		ComputerName = $env:ComputerName
 		Active = $Monitor.Active

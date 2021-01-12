@@ -52,7 +52,7 @@ class WindowsPlatform:
     def get_ram(self):
         cmdram = [
             'powershell',
-            '(Get-WMIObject Win32_PhysicalMemory |  Measure-Object Capacity -Sum).sum/1GB']
+            '(Get-WMIObject Win32_PhysicalMemory | Measure-Object Capacity -Sum).sum/1GB']
         runram = Popen(cmdram, stdout=PIPE)
         ram = runram.communicate()[0].strip().split(b'.')[0]
         ram = ram.decode("utf-8")
@@ -74,7 +74,7 @@ class WindowsPlatform:
     def get_ssd(self):
         cmdssd = [
             'powershell',
-            '(Get-WmiObject win32_diskdrive |where{$_.model -Like "*SSD*"}| select-object -expand SerialNumber)']
+            '(Get-WmiObject win32_diskdrive | where{$_.model -Like "*SSD*"} | select-object -expand SerialNumber)']
         runssd = Popen(cmdssd, stdout=PIPE)
         ssd = runssd.communicate()[0].strip().replace(b"\r\n", b", ")
         ssd = ssd.decode("utf-8")
